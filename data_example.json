@@ -1,0 +1,8 @@
+{
+    "destination": "data.json",
+    "texts": [
+        "Esta talla es la tiza",
+        "que rico es el picadillo de solla"
+    ],
+    "options": ["verdadero", "falso"]
+}
