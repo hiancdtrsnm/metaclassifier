@@ -25,7 +25,7 @@ class Sample(object):
 
         self.writter.save(self)
 
-    def to_dict(self):
+    def to_dict(self)->dict:
         return {
             'text':self.text,
             'answers': [ans.to_dict() for ans in self.answers],
