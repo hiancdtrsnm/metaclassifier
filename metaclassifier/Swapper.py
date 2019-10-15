@@ -4,13 +4,14 @@ from .Sample import Sample
 from hashlib import md5
 import json
 from os.path import exists
-
+from typing import Dict
 
 class Swapper(object):
     def __init__(self, texts: List[str], options: List[str], destination: str):
 
         self.destination = destination
-        self.samples = {}
+        self.samples: Dict[str, Sample] = {}
+        self.options = options
         for text in texts:
             hash_digest = md5(text.encode()).hexdigest()
             self.samples[hash_digest] = Sample(hash_digest, text, options,
