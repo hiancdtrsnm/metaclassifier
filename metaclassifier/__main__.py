@@ -27,4 +27,27 @@ class CLI:
                 sample.save(sample.options[index])
 
 
+    @staticmethod
+    def webapp(json_path, web_server_config: str=None):
+        web_config: dict = {'host': '0.0.0.0', 'port': 8000, 'reload':True}
+        if web_server_config is not None:
+            raise NotImplementedError('But not quite yet')
+
+
+
+        data = json.load(open(json_path))
+
+        sp = Swapper.load_from_dict(data)
+
+        from .webapp import run_web
+
+        run_web(sp, **web_config)
+
+
+
+
+
+
+
+
 Fire(CLI)
