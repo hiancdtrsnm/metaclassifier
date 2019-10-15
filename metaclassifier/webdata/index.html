@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MetaClassifier</title>
+
+    <link rel="stylesheet" href="/static/css/wire.min.css" type="text/css">
+</head>
+
+<body>
+
+    <div data-grid>
+    <h1 class="col-12 align-center"> Seleccione la clasificación correcta</h1>
+    <hr class="col-12">
+
+    <div id="container" class="container center">
+
+
+        <h4 class="col-12 align-center" style="color: red;">{{text}}</h4>
+        <hr>
+
+        <div v-if="hash" class="align-center">
+            <button v-for="(item, index) in options" :key="item.id" class="button" style="margin: 2px;"
+                @click=sendAns(item)>{{item}}</button>
+        </div>
+
+
+    </div>
+</div>
+    <script src="/static/js/lodash.js"></script>
+    <script src="/static/js/vue.js"></script>
+    <script>
+
+        app = new Vue({
+            el: '#container',
+            data: {
+                text: '',
+                options: [],
+                hash: '',
+            },
+
+            methods: {
+                getOptions: function () {
+                    fetch('/config').then((response) => {
+                        // console.log(response.json())
+                        return response.json();
+                    }).then(json => this.options = json.options);
+                },
+                getText: function () {
+                    fetch('/sample').then((response) => {
+                        // console.log(response.json())
+                        return response.json();
+                    }).then((json) => {
+                        this.text = json.text;
+                        this.hash = json.id;
+                    });
+                },
+                sendAns: function (ans) {
+                    fetch('/sample', {
+                        method: 'post',
+                        headers: {
+                            "Content-Type": "application/json",
+                            // "Content-Type": "application/x-www-form-urlencoded",
+                        },
+                        body: JSON.stringify({ 'hash': this.hash, 'ans': ans })
+                    }).then((response) => {
+                        // console.log(response.json())
+                        return response.json();
+                    }).then((data) => {
+                        console.log(this.data);
+                        this.getText();
+                    });
+
+                },
+            },
+
+            mounted() {
+                this.getOptions();
+                this.getText();
+            }
+        });
+        app.getText();
+        app.getOptions();
+    </script>
+
+    <script src="/static/js/wire.min.js"></script>
+</body>
+
+</html>
