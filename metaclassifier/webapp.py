@@ -1,44 +1,45 @@
-from fastapi import FastAPI
-from starlette.staticfiles import StaticFiles
-from starlette.middleware.cors import CORSMiddleware
+from flask import Flask, send_file, jsonify, request, send_from_directory
 from .Swapper import Swapper
 from path import Path
-import uvicorn
-from starlette.responses import HTMLResponse
-
-app = FastAPI()
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_methods=['*'], allow_headers=['*'])
+from flask_cors import CORS
 
 path = Path(__file__).parent
-app.mount("/static", StaticFiles(directory=(path/'webdata')), name="static")
+app = Flask(__name__, static_url_path='/assets')
+CORS(app)
+
+@app.route('/static/<path:filename>')
+def assets(filename):
+  # Add custom handling here.
+  # Send a file download response.
+  print(filename)
+  return send_from_directory((path/'webdata').name, filename)
 
 swapper: Swapper
-
-@app.get('/')
+@app.route('/')
 def index():
-    return HTMLResponse(content=(path/'webdata'/'index.html').text())
+    return send_file((path/'webdata'/'index.html'))
 
 
-@app.get('/config')
+@app.route('/config')
 def get_config():
-    return {'options': swapper.options}
+    return jsonify({'options': swapper.options})
 
-@app.post('/sample')
-def solve_sample( sample: dict):
+@app.route('/sample', methods=['POST'])
+def solve_sample():
+    sample = request.json
     if sample['hash']:
         swapper.samples[sample['hash']].save(sample['ans'])
-        return {'status': 'ok'}
+        return jsonify({'status': 'ok'})
 
-    return {'status': 'failed'}
+    return jsonify({'status': 'failed'})
 
-@app.get('/sample')
+@app.route('/sample')
 def eval_samples():
     if not swapper.samples:
-        return {'text': 'se acabó', 'id': ''}
-    return swapper.get_sample().to_dict()
-
+        return jsonify({'text': 'se acabó', 'id': ''})
+    return  jsonify(swapper.get_sample().to_dict())
 
 def run_web(sp: Swapper, **kwargs):
         global swapper
         swapper = sp
-        uvicorn.run(app, **kwargs)
+        app.run(host='0.0.0.0', port='8080')

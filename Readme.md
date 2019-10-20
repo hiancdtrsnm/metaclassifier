@@ -9,3 +9,10 @@ For use the CLI interface exec:
 ``` {.bash}
 python -m metaclassifier console data_example.json
 ```
+
+
+For use the webapp interface exec (still missing webapp specific configs):
+
+``` {.bash}
+python -m metaclassifier webapp data_example.json
+```
