@@ -22,7 +22,10 @@ class Swapper(object):
         if exists(destination):
             self.done = json.load(open(destination))
             for s in self.done:
-                self.samples.pop(s['id'])
+                try:
+                    self.samples.pop(s['id'])
+                except KeyError:
+                    print('Error removing id: '+ s['id'] + '\n' , s)
 
 
     def get_sample(self)->Sample:
