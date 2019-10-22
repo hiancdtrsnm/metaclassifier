@@ -24,12 +24,21 @@ class Swapper(object):
             for s in self.done:
                 self.samples.pop(s['id'])
 
+
     def get_sample(self)->Sample:
+
+        with_annotation = [s for s in self.samples.values() if len(s.answers) > 0]
+
+        prob = min(1, len(with_annotation)/100)
+
+        if random.random() < prob:
+            return random.choice(tuple(self.samples.values()))
+
         return random.choice(tuple(self.samples.values()))
 
     def save(self, sample: Sample):
 
-        if sample.id in self.samples:
+        if sample.id in self.samples and len(sample.answers) >= 2:
             self.samples.pop(sample.id)
 
         self.finished[sample.id] = sample
