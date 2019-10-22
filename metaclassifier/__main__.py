@@ -1,14 +1,15 @@
 import json
 from .Swapper import Swapper
 from fire import Fire
+import yaml
 
 class CLI:
     @staticmethod
-    def console(json_path):
+    def console(yaml_path):
 
-        data = json.load(open(json_path))
+        data = yaml.load(open(json_path))
 
-        sp = Swapper.load_from_dict(data)
+        sp = Swapper.load_from_yaml(data)
 
         while sp.samples:
 
@@ -35,9 +36,9 @@ class CLI:
 
 
 
-        data = json.load(open(json_path))
+        data = yaml.load(open(json_path).read())
 
-        sp = Swapper.load_from_dict(data)
+        sp = Swapper.load_from_yaml(data)
 
         from .webapp import run_web
 

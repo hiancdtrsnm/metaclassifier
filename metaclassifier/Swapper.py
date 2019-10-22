@@ -42,3 +42,9 @@ class Swapper(object):
     @staticmethod
     def load_from_dict(data: dict):
         return Swapper(**data)
+
+    @staticmethod
+    def load_from_yaml(data: dict):
+        path = data.pop('source')
+        data['texts'] = [line for line in open(path)]
+        return Swapper(**data)

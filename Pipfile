@@ -12,6 +12,7 @@ flask = "*"
 flask-cors = "*"
 fire = "*"
 path-py = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.6"

@@ -1,0 +1,9 @@
+
+source: "sentences.txt"
+
+destination: "data.json"
+
+options:
+  - "verdadero"
+  - "falso"
+  - "azul"
