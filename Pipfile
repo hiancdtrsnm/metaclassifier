@@ -4,8 +4,14 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-ipython = "*"
+# pytest = "*"
+# pytest-cov = "*"
+# pylint = "*"
+# pylint-exit = "*"
+# codecov = "*"
+# ipython = "*"
 mypy = "*"
+
 
 [packages]
 flask = "*"
@@ -13,6 +19,7 @@ flask-cors = "*"
 fire = "*"
 path-py = "*"
 pyyaml = "*"
+toml = "*"
 
 [requires]
 python_version = "3.6"
