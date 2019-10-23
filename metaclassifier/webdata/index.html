@@ -16,6 +16,12 @@
 
     <div id="container" class="container center">
 
+        <div v-if='media' class="align-center">
+            <h3 class="col-12 align-center" style="color: blueviolet;">{{media}}</h3>
+        </div>
+        <div v-if='article'>
+                <h3 class="col-12 align-center" style="color: blue">{{article}}</h3>
+        </div>
 
         <h4 class="col-12 align-center" style="color: red;">{{text}}</h4>
         <hr>
@@ -39,6 +45,8 @@
                 text: '',
                 options: [],
                 hash: '',
+                media: '',
+                article: ''
             },
 
             methods: {
@@ -55,6 +63,17 @@
                     }).then((json) => {
                         this.text = json.text;
                         this.hash = json.id;
+                        if(json.additional_data.hasOwnProperty('media')){
+                            this.media = json.additional_data.media;
+                        } else {
+                            this.media = '';
+                        }
+                        if(json.additional_data.hasOwnProperty('text')){
+                            this.article = json.additional_data.text;
+                        } else {
+                            this.article = '';
+                        }
+                        this.$forceUpdate();
                     });
                 },
                 sendAns: function (ans) {
@@ -81,8 +100,8 @@
                 this.getText();
             }
         });
-        app.getText();
-        app.getOptions();
+        //app.getText();
+        //app.getOptions();
     </script>
 
     <script src="/static/js/wire.min.js"></script>

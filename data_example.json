@@ -4,5 +4,19 @@
         "Esta talla es la tiza",
         "que rico es el picadillo de solla"
     ],
+    "aditional_datas": [
+        {
+            "media": "Cubadebate",
+            "text": "dgfjmdfklgkdfl",
+            "coincident_answers": 4,
+            "max_answers": 10
+        },
+        {
+            "media": "Cubadebate",
+            "text": "j,hglkjltm",
+            "coincident_answers": 2,
+            "max_answers": 10
+        }
+    ]
     "options": ["verdadero", "falso"]
 }

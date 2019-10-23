@@ -7,8 +7,7 @@ class CLI:
     @staticmethod
     def console(yaml_path):
 
-        data = yaml.load(open(json_path))
-
+        data = yaml.load(open(yaml_path))
         sp = Swapper.load_from_yaml(data)
 
         while sp.samples:
@@ -16,7 +15,6 @@ class CLI:
             sample = sp.get_sample()
 
             print(sample.text)
-
             print('\nchoose one option:\n\n')
 
             ans = input(' '.join((f'({i}) {option}' for i, option in enumerate(sample.options))) + '\n')
@@ -34,21 +32,12 @@ class CLI:
         if web_server_config is not None:
             raise NotImplementedError('But not quite yet')
 
-
-
         data = yaml.load(open(json_path).read())
-
         sp = Swapper.load_from_yaml(data)
 
         from .webapp import run_web
 
         run_web(sp, **web_config)
 
-
-
-
-
-
-
-
-Fire(CLI)
+if __name__ == "__main__":
+    Fire(CLI)
