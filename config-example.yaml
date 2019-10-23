@@ -3,6 +3,8 @@ source: "sentences.txt"
 
 destination: "data.json"
 
+info: "aditional_datas.json"
+
 options:
   - "verdadero"
   - "falso"

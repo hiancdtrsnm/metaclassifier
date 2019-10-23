@@ -36,7 +36,7 @@ def solve_sample():
 @app.route('/sample')
 def eval_samples():
     if not swapper.samples:
-        return jsonify({'text': 'se acabó', 'id': ''})
+        return jsonify({'text': 'se acabó', 'id': '', 'additional_data': {}})
     return  jsonify(swapper.get_sample().to_dict())
 
 def run_web(sp: Swapper, **kwargs):
