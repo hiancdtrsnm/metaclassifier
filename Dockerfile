@@ -11,4 +11,4 @@ RUN pipenv install --skip-lock --system --dev
 
 COPY metaclassifier /app/
 
-CMD ["pipenv", "run", "python", "-m", "app", "webapp", "/data/comments.json"]
+CMD ["pipenv", "run", "python", "-m", "app", "oneconfig", "telegram.yaml"]
