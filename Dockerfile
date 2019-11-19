@@ -1,6 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn:python3.6
-RUN pip install pipenv
-
+FROM python:3.7
 
 WORKDIR /app
 
