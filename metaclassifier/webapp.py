@@ -42,4 +42,4 @@ def eval_samples():
 def run_web(sp: Swapper, **kwargs):
         global swapper
         swapper = sp
-        app.run(host='0.0.0.0', port='8080')
+        app.run(host='0.0.0.0', port=8080)

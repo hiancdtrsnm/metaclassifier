@@ -2,7 +2,8 @@ import json
 from .Swapper import Swapper
 from fire import Fire
 import yaml
-
+import os
+from .misc import load_config
 class CLI:
     @staticmethod
     def console(yaml_path):
@@ -43,6 +44,13 @@ class CLI:
         from .webapp import run_web
 
         run_web(sp, **web_config)
+
+    @staticmethod
+    def oneconfig(yamlpath):
+        load_config(yamlpath)
+        from .telegrambot import run
+
+        run()
 
 
 
