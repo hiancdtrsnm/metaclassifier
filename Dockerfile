@@ -4,9 +4,9 @@ RUN pip install pipenv
 
 WORKDIR /app
 
-COPY Pipfile /app/
+COPY requirements.txt /app/
 
-RUN pipenv install --skip-lock --system --dev
+RUN pip install -r requirements.txt
 
 
 COPY metaclassifier /app/
