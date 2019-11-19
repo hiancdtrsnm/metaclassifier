@@ -1,18 +1,35 @@
 # Metaclassifier
 
-*Metaclassifier* is a python library/tools design to help with classification in **ML** datasets. It allow classify text using a **CLI** interface. And will allow Telegram bots and a web interface for distributed classification.
+*Metaclassifier* is a python library/tools design to help with classification in **ML** datasets. It allow classify text using a **CLI** interface and allow Telegram bots and a web interface for distributed classification.
 
-For now reads from a *json* and write to another but we intended to allow multiple source of income and saving the data.
+Notes:
 
-For use the CLI interface exec:
+I brake this again, but now the telegrambot interface works, the schemma change a lite.
+Now need 2 files the config where why put all configs (`telegram.yml`) and a sentence files
+with all the text for classification 1 per line how to use it. Easy:
+
 
 ``` {.bash}
-python -m metaclassifier console data_example.json
+python -m metaclassifier oneconfig telegram.yaml
 ```
 
+Example of `config.yml`:
 
-For use the webapp interface exec (still missing webapp specific configs):
+```yaml
 
-``` {.bash}
-python -m metaclassifier webapp data_example.json
+swapper:
+  source: "sentences.txt"
+
+  destination: "data.json"
+
+  options:
+    - "verdadero"
+    - "falso"
+    - "azul"
+
+engine:
+  telegram:
+    apitoken: 'here goes the token'
+
+
 ```
