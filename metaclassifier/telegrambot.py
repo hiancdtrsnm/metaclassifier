@@ -140,9 +140,11 @@ def confirm_msg(msgid, bus, direction):
 @dp.callback_query_handler(optionCallback.filter())
 async def confirmationCB(query: types.CallbackQuery):
     prefix, hash, option = query.data.split(':')
-    ans = swapper.samples[hash].save(option)
+    ans = swapper.samples[hash].save(option, user=query.from_user.to_python())
     text, markup = newquestion()
-    await query.message.edit_text(text, reply_markup=markup)
+    await query.message.edit_text('Thanks')
+
+    await bot.send_message(query.message.chat.id, text, reply_markup=markup)
 
 def run():
     # loop.create_task()
