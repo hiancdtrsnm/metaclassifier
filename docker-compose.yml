@@ -1,0 +1,11 @@
+version: '2'
+services:
+  bot:
+    build:
+      context: .
+    image: metaclassifier
+
+    volumes:
+      - ./data:/data
+    working_dir: /
+    command: python -m app oneconfig /data/telegram.yaml
