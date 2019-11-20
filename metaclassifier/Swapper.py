@@ -58,5 +58,5 @@ class Swapper(object):
     @staticmethod
     def load_from_yaml(data: dict):
         path = data.pop('source')
-        data['texts'] = [json.loads(line) for line in open(path)]
+        data['texts'] = [json.loads(line) for line in open(path) if line]
         return Swapper(**data)
