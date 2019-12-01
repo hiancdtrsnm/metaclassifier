@@ -5,6 +5,7 @@ from hashlib import md5
 import json
 from os.path import exists
 from typing import Dict
+from collections import Counter
 
 class Swapper(object):
     def __init__(self, texts: List[str], options: List[str], destination: str):
@@ -18,14 +19,21 @@ class Swapper(object):
                                                self)
 
         self.finished = {}
-
+        counter = 0
         if exists(destination):
             self.done = json.load(open(destination))
             for s in self.done:
                 try:
-                    self.samples.pop(s['id'])
-                except KeyError:
+                    # Sustituir this for organizative method
+                    c = Counter(map(lambda x: x['answer'], s['answers']))
+                    if max(c.values()) >= 2:
+                        counter += 1
+                        self.samples.pop(s['id'])
+                except KeyError as e:
+                    print(e)
                     print('Error removing id: '+ s['id'] + '\n' , s)
+
+        print('Skiped samples: ', counter)
 
 
     def get_sample(self)->Sample:
@@ -41,7 +49,9 @@ class Swapper(object):
 
     def save(self, sample: Sample):
 
-        if sample.id in self.samples and len(sample.answers) >= 2:
+        # This most be separeted
+        c = Counter(map(lambda x: x.answer, sample.answers))
+        if max(c.values()) >= 2:
             self.samples.pop(sample.id)
 
         self.finished[sample.id] = sample
