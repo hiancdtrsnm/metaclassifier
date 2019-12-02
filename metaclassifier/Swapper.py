@@ -40,7 +40,7 @@ class Swapper(object):
 
         with_annotation = [s for s in self.samples.values() if len(s.answers) > 0]
 
-        prob = min(1, len(with_annotation)/100)
+        prob = min(1, len(with_annotation)/20)
 
         if random.random() < prob:
             return random.choice(tuple(self.samples.values()))
